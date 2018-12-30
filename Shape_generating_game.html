@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+		<html lang="en">
+ 
+					<head>
+
+						<meta charset="UTF-8">
+						<link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+						<title>Javascript Workbook</title>
+            
+            <style type ="text/CSS" rel = "stylesheet">          
+            
+              html, body {
+              	font-family: 'Patua One', cursive;
+              }
+
+               h1 {	
+	               text-transform: capitalize;
+              }
+
+              /*#canvas {
+
+                margin: auto auto;
+                top: 10px;
+                border: 1px solid black;
+                width: 1000px;
+                height: 450px;
+
+              }*/
+
+              #shape {
+
+                width: 200px;
+                height: 200px;
+                background-color: red;
+
+                margin-top: 100px;
+                display:none;
+                position:relative;
+              }
+
+              #gameArea {
+
+                width: 1200px;
+                height: 400px;
+                margin:auto;
+              }      
+
+              #meanTimeDiv {
+
+              	font-weight: bold;
+              	position:absolute;
+              	margin:auto auto;
+              }
+            
+            </style> 
+
+					</head>
+					<body>
+
+						<h1>Test your reactions against the timer</h1>	
+						<h4>Click on the shapes as quickly as you can</h4>
+						<p><strong>Your Time: </strong><span id="yourTime"></span></p>
+						<div id="meanTimeDiv"><p>your best time: <span id="bestTime"></span></p></div>
+						<P><div id="gameArea">
+						<div id="shape"></div>
+
+					<script type="text/javascript">
+					
+
+						var bestTimeValue = 0; 
+
+
+						function backgColorChange() {
+
+							  var letters = '0123456789ABCDEF';
+
+							  var color = '#';
+
+							  for (var i = 0; i < 6; i++) {
+
+							    color += letters[Math.floor(Math.random() * 16)];
+
+					  }
+							
+
+							// var bgColors = ["D6E5E3", "CACFD6", "FFFF82", "E65F5C", "5F4BB6l", "f87501", "26F0F1", "BB3DCC", "96C5F7"];
+
+							// for ( var i = 0; i < bgColors.length; i ++) 
+
+							 return color; 
+
+							 document.getElementById("shape").style.backgroundColor = backgColorChange();
+
+							 // "#" + bgColors[Math.floor(Math.random()*bgColors.length)];
+
+						}
+
+
+
+		
+				var i = 0; 
+
+				var start = new Date().getTime(); 
+
+
+						function shapeAppear() {
+
+							var top = Math.random() * 200; 
+
+							var left = Math.random() * 800; 
+
+							 // by using Math.random()*200) + 100; you are adding 100px to the base of 0, otherwise 
+							 // the width or height could be a 0 value and therefore not clickable. You're adding a minimum size
+
+							var width = Math.round(Math.random() * 200) + 100;  
+
+							var height = Math.round(Math.random() * 150) + 100;  
+
+							document.getElementById("shape").style.backgroundColor = backgColorChange(); 
+
+							if (Math.random() > 0.5) {
+
+								document.getElementById("shape").style.borderRadius = "50%"; 
+							}
+
+							else {
+
+								document.getElementById("shape").style.borderRadius = "0%"; 
+							}
+
+							document.getElementById("shape").style.width = width + "px";
+
+							document.getElementById("shape").style.height = height + "px";  
+
+							document.getElementById("shape").style.left = left + "px"; 
+
+							document.getElementById("shape").style.top = top + "px"; 
+
+							document.getElementById("shape").style.display = "block"; 
+
+							start = new Date().getTime(); 
+
+						}
+
+
+							function appearAfterDelay() {
+
+								setTimeout(shapeAppear, Math.random() * 1500);
+							}
+
+							appearAfterDelay();
+
+							document.getElementById("shape").onclick = function(){
+
+							document.getElementById("shape").style.display =  "none";
+
+							var end = new Date().getTime(); 
+
+							var timeTaken = (end - start)/1000; 
+
+							document.getElementById("yourTime").innerHTML = timeTaken + " s";
+
+							 if (bestTime < timeTaken) {
+
+							 	bestTime = timeTaken;
+
+							 	document.getElementById("bestTime").innerHTML = sessionStorage.bestTime + "s"
+
+							 } else {
+
+							 	document.getElementById("bestTime").innerHTML = timeTaken + "s"
+
+							 }
+
+							 appearAfterDelay();
+
+							}
+
+							
+
+							// document.getElementById("meanTime").InnerHTML = averageTime / 5; 
+
+							// var averageTime = ""; 
+
+
+
+
+						
+						</script>
+
+						
+					</body>
+
+
+			
+			</html>
